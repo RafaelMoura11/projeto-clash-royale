@@ -39,13 +39,32 @@ for tag in PLAYER_TAGS:
             battle_time_str = battle.get("battleTime")
             battle_time_dt = datetime.strptime(battle_time_str, "%Y%m%dT%H%M%S.%fZ")
 
+            # Captura team e opponent
+            team = battle.get("team", [{}])
+            opponent = battle.get("opponent", [{}])
+
+            # Corrigir trophies e crowns com fallback seguro
+            team_starting_trophies = team[0].get("startingTrophies")
+            if team_starting_trophies is None:
+                team_starting_trophies = player.get("startingTrophies", 0)
+
+            opponent_starting_trophies = opponent[0].get("startingTrophies", 0)
+
+            if team:
+                team[0]["startingTrophies"] = team_starting_trophies
+                team[0]["crowns"] = team[0].get("crowns", 0)
+
+            if opponent:
+                opponent[0]["startingTrophies"] = opponent_starting_trophies
+                opponent[0]["crowns"] = opponent[0].get("crowns", 0)
+
             # Dados principais da batalha
             battle_data = {
                 "utcTime": battle_time_dt,
                 "type": battle.get("type"),
-                "team": battle.get("team"),
-                "opponent": battle.get("opponent"),
-                "is_winner": player.get("crowns", 0) > battle.get("opponent", [{}])[0].get("crowns", 0)
+                "team": team,
+                "opponent": opponent,
+                "is_winner": team[0].get("crowns", 0) > opponent[0].get("crowns", 0)
             }
 
             # Evita duplicatas pelo timestamp + nome do jogador
