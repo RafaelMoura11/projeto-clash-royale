@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: clash-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - clash_data:/data/db
+    restart: always
+
+volumes:
+  clash_data:

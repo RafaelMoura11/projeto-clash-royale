@@ -1,0 +1,17 @@
+# Ambientes virtuais
+venv/
+__pycache__/
+*.pyc
+
+# Arquivos do sistema
+.DS_Store
+*.swp
+
+# Arquivos sensíveis
+config.py
+
+# Logs (se forem gerados futuramente)
+*.log
+
+# Docker
+clash_data/
