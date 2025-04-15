@@ -1,3 +1,7 @@
+import time
+time.sleep(10) 
+# NÃO ESQUECER DE PEGAR O IP DA MÁQUINA
+
 import requests
 import pymongo
 from datetime import datetime
@@ -77,4 +81,4 @@ for tag in PLAYER_TAGS:
 
         print(f"Batalhas de {tag} importadas com sucesso.")
     else:
-        print(f"Erro ao acessar API para o jogador {tag}: {response.status_code} - {response.text}")
+        print(response)

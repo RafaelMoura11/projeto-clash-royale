@@ -1,14 +1,22 @@
 version: "3.8"
 
 services:
-  mongodb:
-    image: mongo
+  clash-mongo:
+    image: mongo:latest
     container_name: clash-mongo
     ports:
       - "27017:27017"
     volumes:
-      - clash_data:/data/db
+      - mongo-data:/data/db
     restart: always
 
+  importer:
+    build: ./importer
+    depends_on:
+      - clash-mongo
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "import_from_api.py"]
+
 volumes:
-  clash_data:
+  mongo-data:
