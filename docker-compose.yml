@@ -10,13 +10,5 @@ services:
       - mongo-data:/data/db
     restart: always
 
-  importer:
-    build: ./importer
-    depends_on:
-      - clash-mongo
-    environment:
-      - PYTHONUNBUFFERED=1
-    command: ["python", "import_from_api.py"]
-
 volumes:
   mongo-data:

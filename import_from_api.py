@@ -1,6 +1,4 @@
-import time
-time.sleep(10) 
-# NÃO ESQUECER DE PEGAR O IP DA MÁQUINA
+# NÃO ESQUECER DE PEGAR O IP DA MÁQUINA com: curl ifconfig.me
 
 import requests
 import pymongo
